@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import { useState, useEffect } from "react";
+import { Header } from "./components.js/header";
+import { SignLogForm } from "./components.js/header";
+import { Footer } from "./components.js/footer";
+import { fetchImages } from "./utils.js";
+
 import './App.css';
 
-function App() {
+
+const App = () => {
+  const [user, setUser] = useState();
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    fetchImages(setImages);
+  }, [])
+
+  // const submitHandler = (e) => {
+  //   e.preventDefault()
+  //   setTitle(userInput);
+  // }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="hero">
+        <Header title={user} />
+        <SignLogForm setUser = {setUser}/>
+        <div className="imageContainer">
+          {images.map((image, i) => {
+            return (
+              <img src={image.download_url} alt={`random file from unsplash number ${i}`}/>
+            )
+          })}
+        </div>
+        {/* <img src ="https://picsum.photos/200/300" alt ="Lorem picsum random picture"/> */}
+        <Footer/>
+      </div>
     </div>
   );
 }
