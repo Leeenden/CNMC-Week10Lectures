@@ -1,22 +1,50 @@
 import { useState } from "react";
+import { signUp, logIn } from "../utils.js/index";
 
-export const SignLogForm = ({setUser}) => {
+export const SignForm = ({setUser}) => {
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    const submitHandler = (e) => {
+    const submitSignUpHandler = (e) => {
         e.preventDefault();
-        console.log(username, email, password);
+        signUp(username, email, password, setUser);
     }
 
     return (
-        <form onSubmit={submitHandler} >
-            <input onChange={() => setUsername(e.target.value)} 
+        <form onSubmit={submitSignUpHandler}>
+            <input onChange={(e) => setUsername(e.target.value)} 
             placeholder="Username"/>
-            <input onChange={() => setEmail(e.target.value)}/>
-            <input onChange={() => setPassword(e.target.value)}/>
-            <button type="submit"> Sign-up </button>
+            <input onChange={(e) => setEmail(e.target.value)}/>
+            <input onChange={(e) => setPassword(e.target.value)}/>
+            <button type="submit" > Sign-up </button>
         </form>
+
+        
     )
+
+}
+
+export const LogForm = ({setUser}) => {
+    const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const submitLogInHandler = (e) => {
+        e.preventDefault();
+        logIn(username, email, password, setUser);
+    }
+
+    return (
+        <form onSubmit={submitLogInHandler}>
+            <input onChange={(e) => setUsername(e.target.value)} 
+            placeholder="Username"/>
+            <input onChange={(e) => setEmail(e.target.value)}/>
+            <input onChange={(e) => setPassword(e.target.value)}/>
+            <button type="submit" > Log-in</button>
+        </form>
+
+        
+    )
+
 }
